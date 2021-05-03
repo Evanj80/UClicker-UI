@@ -1,4 +1,5 @@
 let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let logoutButton = document.getElementById("logout-button");
 let cancelButton = document.getElementById("addcoursecancel");
 let createButton = document.getElementById("addcoursesubmit");

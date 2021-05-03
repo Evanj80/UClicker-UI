@@ -1,4 +1,5 @@
 let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let signupStudentButton = document.getElementById("signupstudent");
 let signupInstructorButton = document.getElementById("signupinstructor");
 
