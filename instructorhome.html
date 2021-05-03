@@ -28,27 +28,22 @@
                     </ul>
                     <form class="form-inline mr-auto" target="_self">
                         <div class="form-group"><label for="search-field"></label></div>
-                    </form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button" href="#" style="background: var(--red);">Log Out</a>
+                    </form><span class="navbar-text"></span><a class="btn btn-light action-button" id="logout-button" role="button" href="#" style="background: var(--red);">Log Out</a>
                 </div>
             </div>
         </nav>
         <div class="container hero">
             <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <h1 class="text-center" style="text-align: left;">YOUR CLASSES</h1><button class="btn btn-primary d-lg-flex" type="button" style="width: inherit;text-align: center;margin: auto;margin-bottom: 10px;">Create new class</button>
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title" style="width: inherit;">Course Heading</h4>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: inherit;margin-left: 2px;">Course Id</h6><a class="btn btn-light action-button" role="button" href="#" style="background: var(--green);">Start Class</a><a class="btn btn-light action-button" role="button" href="#" style="background: var(--red);margin-left: 10px;">Delete</a>
-                        </div>
-                    </div>
+                <div id="courselistdiv" class="col-md-8 offset-md-2">
+                    <h1 class="text-center" style="text-align: left;">YOUR CLASSES</h1>
+                    <button class="btn btn-primary d-lg-flex" id="createnewclass" type="button" style="width: inherit;text-align: center;margin: auto;margin-bottom: 10px;">Create new class</button>
                 </div>
             </div>
         </div>
     </header>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/instructorhome.js"></script>
 </body>
 
 </html>

@@ -22,17 +22,19 @@
             <div class="image-holder"></div>
             <form method="post" style="background: var(--gray-dark);">
                 <h2 class="text-center" style="color: var(--white);"><strong>Create</strong> an account.</h2>
-                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-                <div class="form-group"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)"></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1" style="color: var(--white);">I am an instructor</label></div>
-                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a class="already" href="index.html" style="color: #dfe7f1;">You already have an account? Login here.</a>
+                <div class="form-group"><input class="form-control" id="registername" type="text" name="text" placeholder="Name"></div>
+                <div class="form-group"><input class="form-control" id="registeremail" type="email" name="email" placeholder="Email"></div>
+                <div class="form-group"><input class="form-control" id="registerpassword" type="password" name="password" placeholder="Password"></div>
+                <div class="form-group"><button class="btn btn-primary btn-block" id="signupstudent" type="submit">Sign Up as Student</button></div>
+                <div class="form-group"><button class="btn btn-primary btn-block" id="signupinstructor" type="submit">Sign Up as Instructor</button></div><a class="already" href="index.html" style="color: #dfe7f1;">You already have an account? Login here.</a>
             </form>
         </div>
     </section>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 
 </html>
