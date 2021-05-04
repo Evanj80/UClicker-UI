@@ -11,27 +11,26 @@ courselist.forEach(res => {
     card.style = "margin:10px;cursor: pointer;"
     let innercard = null;
     let classActive = isClassActive(res.days, res.start_time, res.end_time);
-    console.log("isClassActive? : " + classActive);
     if(!classActive){
         innercard = `<div class="card-body" class_name="${res.class_name}">
-                            <h4 class="card-title" style="width: 400px;">${res.class_name}</h4>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class is yet to start</h6>
+                            <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Class days: ${res.days}</h6>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Class is yet to start</h6>
                         </div>`
     } else if(classActive && !res.isAttending){
         innercard = `<div class="card-body" class_name="${res.class_name}">
-                        <h4 class="card-title" style="width: 400px;">${res.class_name}</h4>
-                        <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
-                        <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
-                        <a class="btn btn-light action-button" id="joinclassbutton"  class_name="${res.class_name}" role="button" href="#" style="background: var(--red);margin-left: 10px;">Join</a>
+                        <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
+                        <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Class days: ${res.days}</h6>
+                        <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
+                        <a class="btn btn-light action-button" id="joinclassbutton" class_name="${res.class_name}" role="button" href="#" style="background: var(--red);margin-left: 10px;">Join</a>
                     </div>`
     } else if(classActive && res.isAttending){
         innercard = `<div class="card-body" class_name="${res.class_name}">
-                            <h4 class="card-title" style="width: 400px;">${res.class_name}</h4>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
-                            <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">You have joined the class</h6>
+                            <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Class days: ${res.days}</h6>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
+                            <h6 class="text-muted card-subtitle mb-2" class_name="${res.class_name}" style="width: 400px;">You have joined the class</h6>
                         </div>`
     }
     card.innerHTML += innercard
