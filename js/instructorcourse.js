@@ -25,17 +25,19 @@ function getAllStudents(){
             let allstudents = JSON.parse(xhr.responseText);
             let currentcount = 0;
             let totalcount = 0
+            let studentPresentList = []
             allstudents.forEach( (student) => {
-                if (student.isAttending){
-                    currentcount+=1;
-                }
-                totalcount+=1;
                 let thiscourse = null;
                 student.classes.forEach( course => {
                     if (course.class_name === coursetitle){
                         thiscourse = course;
                     }
                 });
+                if (thiscourse.isAttending){
+                    currentcount+=1;
+                    studentPresentList.push(student.name);
+                }
+                totalcount+=1;
                 attendence = "Attendence: " + thiscourse.attend + " / " + thiscourse.total_class_sessions;
                 let studentcontainer = `<div class="card" style="margin:5px;">
                                             <h6 class="card-title" style="width: 400px;">${student.name}</h4>
@@ -64,6 +66,8 @@ function getAllStudents(){
             else{
                 document.getElementById("classstatus").innerHTML = "Class not started"
             }
+
+            document.getElementById("studentspresent").innerHTML = "Present: " + studentPresentList;
             
         }
         else if(xhr.status > 299 && xhr.readyState == 4) {
