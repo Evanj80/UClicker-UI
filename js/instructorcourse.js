@@ -1,4 +1,5 @@
 let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let coursetitle = localStorage.getItem("current_course");
 let courselist = JSON.parse(localStorage.getItem("classes"));
 let currentcourse = null;
@@ -46,7 +47,7 @@ function getAllStudents(){
                 statisticsdiv.innerHTML += studentcontainer
             });
 
-            if (isClassActive(currentcourse.days, currentcourse.start_time, currentcourse.end_time)){
+            if (currentcourse.isActive){
                 var ctx = document.getElementById("myChart").getContext('2d');
                 var myChart = new Chart(ctx, {
                 type: 'pie',
@@ -61,6 +62,7 @@ function getAllStudents(){
                     }]
                 }
                 });
+                console.log(currentcount, totalcount-currentcount);
                 document.getElementById("classstatus").innerHTML = "Class in progress..."
                 document.getElementById("studentspresent").innerHTML = "Present: " + studentPresentList;
             }
@@ -78,37 +80,6 @@ function getAllStudents(){
     var data = JSON.stringify({"email": email, "class": coursetitle});
     xhr.send(data);
 }
-
-
-function isClassActive(classdaylist, classstart, classend){
-    let classdaylistnew = classdaylist.map(name => name.toLowerCase());
-    let today = new Date();  
-    let day = today.getDay();  
-    let hour = today.getHours();  
-    let min = today.getMinutes();
-    let shour = parseInt(classstart.substring(0, 2));
-    let smin = parseInt(classstart.substring(3, 5));
-    let ehour = parseInt(classend.substring(0, 2));
-    let emin = parseInt(classend.substring(3, 5));
-    let daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
-    let todayday = daylist[day];
-    if (classdaylistnew.includes(todayday)){
-        if (hour > shour && hour < ehour) {
-            return true;
-       } else if (hour == shour && min >= smin) {
-           return true;  
-       } else if (hour == ehour && min <= emin) {
-           return true;
-       } else {
-            return false;
-       }
-    }
-    return false;
-}
-
-
-console.log(isClassActive(["tuesday"], "01:00", "02:00"))
-
 
 document.getElementById("backarrow").addEventListener("click", (e) => {
     e.preventDefault();

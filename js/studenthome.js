@@ -3,6 +3,7 @@ let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.
 let logoutButton = document.getElementById("logout-button");
 let courselist = JSON.parse(localStorage.getItem("classes"));
 let courselistdiv = document.getElementById("courselistdiv");
+getUserDetails();
 
 courselist.forEach(res => {
     let card = document.createElement('div');
@@ -10,7 +11,7 @@ courselist.forEach(res => {
     card.classList.add("card");
     card.style = "margin:10px;cursor: pointer;"
     let innercard = null;
-    let classActive = isClassActive(res.days, res.start_time, res.end_time);
+    let classActive = res.isActive;
     if(!classActive){
         innercard = `<div class="card-body" class_name="${res.class_name}">
                             <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
@@ -50,27 +51,25 @@ logoutButton.addEventListener("click", (e) => {
 
 document.querySelectorAll('.card').forEach(item => {
     item.addEventListener('click', (e) => {
-        getCourseInfo(e.target.getAttribute("class_name"))});
+        if (e.target.id === "joinclassbutton"){
+            let class_name = e.target.getAttribute("class_name");
+            joinClass(class_name);
+        } else {
+            getCourseInfo(e.target.getAttribute("class_name"))
+        }
+    });
 });
 
-let joinClassButton = document.getElementById("joinclassbutton");
-joinClassButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let email = localStorage.getItem('email');
-    let class_name = joinClassButton.getAttribute("class_name");
-    sendJoinClassRequest(email, class_name);
-});
-
-function sendJoinClassRequest(email, class_name) {
+function joinClass(class_name) {
     var xhr = new XMLHttpRequest();
     var url = urlmain + "add/attend";
+    let email = localStorage.getItem("email");
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let json = JSON.parse(xhr.responseText);
-            localStorage.setItem('classes', JSON.stringify(json));
+            let classes = JSON.parse(xhr.responseText);
+            localStorage.setItem('classes', JSON.stringify(classes));
             window.location="studenthome.html";
         }
         else if(xhr.status > 299 && xhr.readyState == 4) {
@@ -82,28 +81,24 @@ function sendJoinClassRequest(email, class_name) {
     xhr.send(data);
 }
 
-function isClassActive(classdaylist, classstart, classend){
-    let classdaylistnew = classdaylist.map(name => name.toLowerCase());
-    let today = new Date();  
-    let day = today.getDay();  
-    let hour = today.getHours();  
-    let min = today.getMinutes();
-    let shour = parseInt(classstart.substring(0, 2));
-    let smin = parseInt(classstart.substring(3, 5));
-    let ehour = parseInt(classend.substring(0, 2));
-    let emin = parseInt(classend.substring(3, 5));
-    let daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
-    let todayday = daylist[day];
-    if (classdaylistnew.includes(todayday)){
-        if (hour > shour && hour < ehour) {
-            return true;
-       } else if (hour == shour && min >= smin) {
-           return true;  
-       } else if (hour == ehour && min <= emin) {
-           return true;
-       } else {
-            return false;
-       }
-    }
-    return false;
+function getUserDetails() {
+    var xhr = new XMLHttpRequest();
+    var url = urlmain + "get/user";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let json = JSON.parse(xhr.responseText);
+            localStorage.setItem('name', json.name);
+            localStorage.setItem('email', json.email);
+            localStorage.setItem('isInstructor', json.admin);
+            localStorage.setItem('classes', JSON.stringify(json.classes));
+        }
+        else if(xhr.status > 299 && xhr.readyState == 4) {
+            let json = JSON.parse(xhr.responseText);
+            alert(json.error);
+        }
+    };
+    var data = JSON.stringify({"email": localStorage.getItem('email')});
+    xhr.send(data);
 }
