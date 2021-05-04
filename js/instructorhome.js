@@ -13,7 +13,7 @@ courselist.forEach(res => {
                         <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
                         <h6 class="text-muted class_name="${res.class_name}" card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
                         <h6 class="text-muted class_name="${res.class_name}" card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
-                        <a class="btn btn-light action-button" role="button" href="#" style="background: var(--red);margin-left: 10px;">Delete</a>
+                        <a id="deletebutton" class="btn btn-light action-button" class_name="${res.class_name}" role="button" href="#" style="background: var(--red);">Delete</a>
                     </div>`
     card.innerHTML += innercard
     courselistdiv.appendChild(card);
@@ -37,5 +37,55 @@ document.getElementById("createnewclass").addEventListener("click", (e) => {
 
 document.querySelectorAll('.card').forEach(item => {
     item.addEventListener('click', (e) => {
-        getCourseInfo(e.target.getAttribute("class_name"))});
+        if (e.target.id === "deletebutton"){
+            let class_name = e.target.getAttribute("class_name");
+            getStudentsThenDelete(class_name);
+        }else{
+            getCourseInfo(e.target.getAttribute("class_name"));
+        }
+    });
 });
+
+function deletecourse(class_name, email, students){
+    var xhr = new XMLHttpRequest();
+    var url = urlmain + "add/delete_class";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let classes = JSON.parse(xhr.responseText);
+            localStorage.setItem('classes', JSON.stringify(classes));
+            location.reload();
+        }
+        else if(xhr.status > 299 && xhr.readyState == 4) {
+            let json = JSON.parse(xhr.responseText);
+            alert(json.error);
+        }
+    };
+    var data = JSON.stringify({"email": email, "class": class_name, "students": students});
+    xhr.send(data);
+}
+
+function getStudentsThenDelete(coursename){
+    var xhr = new XMLHttpRequest();
+    var url = urlmain + "get/all_students_class";
+    let email = localStorage.getItem("email");
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let allstudents = JSON.parse(xhr.responseText);
+            studentemaillist = [];
+            allstudents.forEach(student => {
+                studentemaillist.push(student.email);
+            });
+            deletecourse(coursename, email, studentemaillist);
+        }
+        else if(xhr.status > 299 && xhr.readyState == 4) {
+            let json = JSON.parse(xhr.responseText);
+            alert(json.error);
+        }
+    };
+    var data = JSON.stringify({"email": email, "class": coursename});
+    xhr.send(data);
+}

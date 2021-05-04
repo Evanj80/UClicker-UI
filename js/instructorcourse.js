@@ -62,12 +62,12 @@ function getAllStudents(){
                 }
                 });
                 document.getElementById("classstatus").innerHTML = "Class in progress..."
+                document.getElementById("studentspresent").innerHTML = "Present: " + studentPresentList;
             }
             else{
                 document.getElementById("classstatus").innerHTML = "Class not started"
             }
 
-            document.getElementById("studentspresent").innerHTML = "Present: " + studentPresentList;
             
         }
         else if(xhr.status > 299 && xhr.readyState == 4) {
