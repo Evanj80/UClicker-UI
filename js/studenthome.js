@@ -9,7 +9,7 @@ courselist.forEach(res => {
     card.id = "card";
     card.classList.add("card");
     card.style = "margin:10px;cursor: pointer;"
-    let innercard = `<div class="card-body">
+    let innercard = `<div class="card-body" class_name="${res.class_name}">
                         <h4 class="card-title" style="width: 400px;">${res.class_name}</h4>
                         <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
                         <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
@@ -29,6 +29,7 @@ logoutButton.addEventListener("click", (e) => {
     window.location="index.html";
 });
 
-document.getElementById("card").addEventListener('click',function(e){
-    getCourseInfo(e.target.getAttribute("class_name"));
- });
+document.querySelectorAll('.card').forEach(item => {
+    item.addEventListener('click', (e) => {
+        getCourseInfo(e.target.getAttribute("class_name"))});
+});

@@ -1,5 +1,5 @@
-let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
-// let urlmain = "http://localhost:5000/"
+// let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+let urlmain = "http://localhost:5000/"
 let logoutButton = document.getElementById("logout-button");
 let cancelButton = document.getElementById("addcoursecancel");
 let createButton = document.getElementById("addcoursesubmit");
@@ -16,6 +16,11 @@ cancelButton.addEventListener("click", (e) => {
 });
 
 createButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendCreateClassRequest();
+});
+
+function sendCreateClassRequest() {
     var xhr = new XMLHttpRequest();
     var url = urlmain + "add/new_class";
     let email = localStorage.getItem("email");
@@ -29,6 +34,8 @@ createButton.addEventListener("click", (e) => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let json = JSON.parse(xhr.responseText);
+            let classes = localStorage.getItem('classes');
+            classes
             localStorage.setItem('classes', JSON.stringify(json.classes));
             window.location = "instructorhome.html";
         }
@@ -40,4 +47,4 @@ createButton.addEventListener("click", (e) => {
     var data = JSON.stringify({"email": email, "class": name, "start": starttime, "end": endtime, "students": students, "days": days});
     console.log(data);
     xhr.send(data);
-});
+}
