@@ -1,5 +1,5 @@
-// let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
-let urlmain = "http://localhost:5000/"
+let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let loginButton = document.getElementById("login-button");
 
 loginButton.addEventListener("click", (e) => {

@@ -1,6 +1,5 @@
-// let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
-let urlmain = "http://localhost:5000/"
-let createNewClassButton = document.getElementById("createnewclass");
+let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let logoutButton = document.getElementById("logout-button");
 let courselist = JSON.parse(localStorage.getItem("classes"));
 let courselistdiv = document.getElementById("courselistdiv");
@@ -11,9 +10,9 @@ courselist.forEach(res => {
     card.classList.add("card");
     card.style = "margin:10px;cursor: pointer;"
     let innercard = `<div class="card-body" class_name="${res.class_name}">
-                        <h4 class="card-title" style="width: 400px;">${res.class_name}</h4>
-                        <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
-                        <h6 class="text-muted card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
+                        <h4 class="card-title" class_name="${res.class_name}" style="width: 400px;">${res.class_name}</h4>
+                        <h6 class="text-muted class_name="${res.class_name}" card-subtitle mb-2" style="width: 400px;">Class days: ${res.days}</h6>
+                        <h6 class="text-muted class_name="${res.class_name}" card-subtitle mb-2" style="width: 400px;">Time: ${res.start_time} - ${res.end_time}</h6>
                         <a class="btn btn-light action-button" role="button" href="#" style="background: var(--red);margin-left: 10px;">Delete</a>
                     </div>`
     card.innerHTML += innercard
@@ -22,7 +21,7 @@ courselist.forEach(res => {
 
 function getCourseInfo(class_name){
     localStorage.setItem("current_course", class_name);
-    window.location ="studentcourse.html";
+    window.location ="instructorcourse.html";
 }
 
 logoutButton.addEventListener("click", (e) => {
@@ -31,9 +30,9 @@ logoutButton.addEventListener("click", (e) => {
     window.location="index.html";
 });
 
-createNewClassButton.addEventListener("click", (e) => {
+document.getElementById("createnewclass").addEventListener("click", (e) => {
     e.preventDefault();
-    window.location = "instructorcreateclass.html";
+    window.location="instructorcreateclass.html";
 });
 
 document.querySelectorAll('.card').forEach(item => {

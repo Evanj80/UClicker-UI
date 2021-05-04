@@ -1,5 +1,5 @@
-// let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
-let urlmain = "http://localhost:5000/"
+let urlmain = "http://uclickerapi-env-1.eba-gr7abipg.us-west-1.elasticbeanstalk.com/";
+// let urlmain = "http://localhost:5000/"
 let logoutButton = document.getElementById("logout-button");
 let cancelButton = document.getElementById("addcoursecancel");
 let createButton = document.getElementById("addcoursesubmit");
@@ -32,11 +32,10 @@ function sendCreateClassRequest() {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        if (xhr.readyState === 4 && xhr.status === 201) {
             let json = JSON.parse(xhr.responseText);
-            let classes = localStorage.getItem('classes');
-            classes
-            localStorage.setItem('classes', JSON.stringify(json.classes));
+            console.log(json);
+            localStorage.setItem('classes', JSON.stringify(json));
             window.location = "instructorhome.html";
         }
         else if(xhr.status > 299 && xhr.readyState == 4) {
@@ -45,6 +44,5 @@ function sendCreateClassRequest() {
         }
     };
     var data = JSON.stringify({"email": email, "class": name, "start": starttime, "end": endtime, "students": students, "days": days});
-    console.log(data);
     xhr.send(data);
 }
