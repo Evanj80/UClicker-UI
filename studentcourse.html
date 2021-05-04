@@ -34,11 +34,17 @@
         <div class="container hero">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <h1 class="text-center" style="text-align: left;">Statistics</h1>
+                    <h1 id="coursetitle" class="text-center" style="text-align: left;">Course</h1>
+                    <div class="container" style="width: 50%;">
+                        <h4 id="classstatus" style="color: white;text-align: center;"></h4>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div id="statistics" style="margin-top: 50px;"></div>
                 </div>
             </div>
         </div>
     </header>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/studentcourse.js"></script>
