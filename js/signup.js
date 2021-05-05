@@ -26,12 +26,13 @@ function sendSignUpRequest(urlextenstion) {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let json = JSON.parse(xhr.responseText);
-            window.location = "index.html";
         }
         else if(xhr.status > 299 && xhr.readyState == 4) {
             let json = JSON.parse(xhr.responseText);
             alert(json.error);
         }
+        window.location = "index.html";
+
     };
     var data = JSON.stringify({"name": name, "email": email, "password": encryptedPassword});
     xhr.send(data);
