@@ -86,8 +86,6 @@ function startClass(coursename){
     };
     var data = JSON.stringify({"email": email, "class": coursename});
     xhr.send(data);
-
-
 }
 
 function endClass(coursename){
